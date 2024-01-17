@@ -27,6 +27,7 @@ public class ProductController extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		
 		String action = request.getParameter("action");
 		String view = "";
 		
@@ -37,7 +38,6 @@ public class ProductController extends HttpServlet {
 			switch(action) {
 				case "list": view = list(request,response); break;
 				case "info": view = info(request,response); break;
-				
 			}
 			getServletContext().getRequestDispatcher("/product/"+view).forward(request, response);
 		}
@@ -50,7 +50,8 @@ public class ProductController extends HttpServlet {
 	}
 	
 	public String info(HttpServletRequest _request,HttpServletResponse _response) {
-		_request.setAttribute("p", service.getId(_request.getParameter("id")));
+		Product result = service.getId(_request.getParameter("id"));
+		_request.setAttribute("p", result);
 		return "productInfo.jsp";
 	}
 
